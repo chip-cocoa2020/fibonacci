@@ -1,16 +1,20 @@
 'use strict';
 
-function fibonacci(n){
-    if(n === 0){
-        return 0;
-    } else if(n === 1){
-        return 1;
+const memo = new Map();
+memo.set(0, 0);
+memo.set(1, 1);
+
+function fibonacci(n) {
+    if(memo.has(n)) {
+        return memo.get(n);
     } else {
-        return fibonacci(n-1) + fibonacci(n-2);
+        const value = fibonacci(n-1) + fibonacci(n-2);
+        memo.set(n, value);
+        return value;
     }
 }
 
-const length = 40;
+const length = process.argv[2] || 0;
 for (let i = 0; i <= length; i++) {
     console.log(`${i+1} 項目は ${fibonacci(i)}`);
 }
